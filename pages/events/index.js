@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import { Paper , Button} from '@material-ui/core';
 
 const useStyles = makeStyles({
     table: {
@@ -22,13 +22,13 @@ const Events = ({ emailLoggeado }) => {
   const obtenerEventos = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/user-details/${emailLoggeado}`
+        `http://localhost:5000/user-events/${emailLoggeado}`
       );
       if (data.length === 0) {
         throw "usuario no existe";
       }
       const usuario = data[0];
-      setEvents(usuario.events);
+      setEvents(data);
     } catch (err) {
       router.replace("/"); // ------------
     }
@@ -51,8 +51,10 @@ const Events = ({ emailLoggeado }) => {
           <TableRow>
             <TableCell>Nombre</TableCell>
             <TableCell align="right">Categoria</TableCell>
-            <TableCell align="right">Lugar&nbsp;(g)</TableCell>
-            <TableCell align="right">Direccion&nbsp;(g)</TableCell>
+            <TableCell align="right">Lugar&nbsp;</TableCell>
+            <TableCell align="right">Direccion&nbsp;</TableCell>
+            <TableCell align="right">&nbsp;</TableCell>
+            <TableCell align="right">&nbsp;</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -66,6 +68,8 @@ const Events = ({ emailLoggeado }) => {
               <TableCell align="right">{event.category}</TableCell>
               <TableCell align="right">{event.place}</TableCell>
               <TableCell align="right">{event.address}</TableCell>
+              <TableCell align="right"><Button variant="contained">EDIT</Button></TableCell>
+              <TableCell align="right" ><Button variant="contained" color="secondary">DELETE</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>

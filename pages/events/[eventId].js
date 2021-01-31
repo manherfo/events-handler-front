@@ -6,4 +6,4 @@ const EventDetail = () => {
   return <div>Event ID: {eventId}</div>;
 };
 
-export default EventDetail;
+export default withStyles(styles)(EventDetail);
