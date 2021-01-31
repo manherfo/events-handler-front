@@ -24,10 +24,14 @@ const SignUpTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
     setpwd(event.target.value);
   };
   
+  const usuarioRegistrado = async () => {
+    router.push("/"); // ------------
+  };
+  
   const registrarUsuario = async () => {
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/signup/${email}/${pwd}`
+        `http://localhost:5000/signups/${email}/${pwd}`
         );
         usuarioRegistrado()
       } catch (err) {
@@ -35,10 +39,6 @@ const SignUpTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
         alert(err);
       }
     };
-
-  const usuarioRegistrado = async () => {
-    router.push("/"); // ------------
-  };
 
   return (
     <Paper className={`${classes.padding} login_form`}>

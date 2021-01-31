@@ -31,11 +31,11 @@ const LoginTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
   };
   const validarUsuario = async () => {
     try { 
-      const {data} = await axios.get(`http://localhost:5000/validate-pwd/${email}/${pwd}`);
-      if(data.length === 0){
+      const {data} = await axios.get(`http://localhost:5000/validate-pwds/${email}/${pwd}`);
+      if(Object.keys(data).length === 0){
         throw 'usuario invalido';
       }
-      const usuario = data[0];
+      const usuario = data;
       ingresarUsuario(usuario.email);
     }
     catch(err){
