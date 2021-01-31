@@ -27,17 +27,16 @@ const SignUpTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
   const registrarUsuario = async () => {
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/sign-up/${email}/${pwd}`
+        `http://localhost:5000/signup/${email}/${pwd}`
         );
-        const usuario = data[0];
-        ingresarUsuario(usuario.email);
+        usuarioRegistrado()
       } catch (err) {
         console.error(err);
         alert(err);
       }
     };
 
-  const loginUsuario = async () => {
+  const usuarioRegistrado = async () => {
     router.push("/"); // ------------
   };
 
@@ -89,7 +88,7 @@ const SignUpTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
         </Grid>
         <Grid container justify="center" style={{ marginTop: "10px" }}>
           <Button
-            onClick={loginUsuario}
+            onClick={usuarioRegistrado}
             variant="outlined"
             color="primary"
             style={{ textTransform: "none" }}
