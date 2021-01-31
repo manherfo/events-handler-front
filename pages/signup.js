@@ -13,7 +13,7 @@ const styles = (theme) => ({
   },
 });
 
-const LoginTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
+const SignUpTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
   const router = useRouter();
   const [email, setemail] = useState("");
   const [pwd, setpwd] = useState("");
@@ -23,30 +23,22 @@ const LoginTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
   const onchangepwd = (event) => {
     setpwd(event.target.value);
   };
-  const validarUsuario = async () => {
-    try {
-      const { data } = await axios.get(
-        `http://localhost:5000/validate-pwd/${email}/${pwd}`
-      );
-      if (data.length === 0) {
-        throw "usuario invalido";
-      }
-      const usuario = data[0];
-      ingresarUsuario(usuario.email);
-    } catch (err) {
-      console.error(err);
-      alert(err);
-    }
-  };
-
-  useEffect(() => {
-    if (emailLoggeado.trim() !== "") {
-      router.replace("/events"); // ------------
-    }
-  }, [emailLoggeado]);
-
+  
   const registrarUsuario = async () => {
-    router.push("/signup"); // ------------
+    try {
+      const { data } = await axios.post(
+        `http://localhost:5000/sign-up/${email}/${pwd}`
+        );
+        const usuario = data[0];
+        ingresarUsuario(usuario.email);
+      } catch (err) {
+        console.error(err);
+        alert(err);
+      }
+    };
+
+  const loginUsuario = async () => {
+    router.push("/"); // ------------
   };
 
   return (
@@ -87,7 +79,17 @@ const LoginTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
         </Grid>
         <Grid container justify="center" style={{ marginTop: "10px" }}>
           <Button
-            onClick={validarUsuario}
+            onClick={registrarUsuario}
+            variant="outlined"
+            color="secondary"
+            style={{ textTransform: "none" }}
+          >
+            Registrse
+          </Button>
+        </Grid>
+        <Grid container justify="center" style={{ marginTop: "10px" }}>
+          <Button
+            onClick={loginUsuario}
             variant="outlined"
             color="primary"
             style={{ textTransform: "none" }}
@@ -95,19 +97,9 @@ const LoginTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
             Ingresar
           </Button>
         </Grid>
-        <Grid container justify="center" style={{ marginTop: "10px" }}>
-          <Button
-            onClick={registrarUsuario}
-            variant="outlined"
-            color="secondary"
-            style={{ textTransform: "none" }}
-          >
-            Registrate
-          </Button>
-        </Grid>
       </div>
     </Paper>
   );
 };
 
-export default withStyles(styles)(LoginTab);
+export default withStyles(styles)(SignUpTab);
