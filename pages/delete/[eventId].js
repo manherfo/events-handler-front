@@ -68,13 +68,11 @@ const DeleteEvent = () => {//{ emailLoggeado }) => {
         <TableHead>
           <TableRow>
             <TableCell>Evento</TableCell>
-            <TableCell align="right">Nombre</TableCell>
-            <TableCell align="right">Categoria</TableCell>
-            <TableCell align="right">Lugar</TableCell>
-            <TableCell align="right">Direccion</TableCell>
-            <TableCell align="right"></TableCell>
-            <TableCell align="right"></TableCell>
-            <TableCell align="right"></TableCell>
+            <TableCell align="right">Name</TableCell>
+            <TableCell align="right">Category</TableCell>
+            <TableCell align="right">Place</TableCell>
+            <TableCell align="right">Address</TableCell>
+            <TableCell align="right">Created at</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -85,7 +83,8 @@ const DeleteEvent = () => {//{ emailLoggeado }) => {
               <TableCell align="right">{event.category}</TableCell>
               <TableCell align="right">{event.place}</TableCell>
               <TableCell align="right">{event.address}</TableCell>
-              <TableCell align="right"><Button variant="contained" color="secondary" onClick={e => deleteEvent(event.id)}>Delete</Button></TableCell>
+              <TableCell align="right">{event.created_at}</TableCell>
+              <TableCell align="right"><Button variant="contained" color="secondary" onClick={e => deleteEvent(event.id)}>Confirm</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>

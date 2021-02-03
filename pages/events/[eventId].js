@@ -59,6 +59,7 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
             <TableCell align="right">Category</TableCell>
             <TableCell align="right">Place&nbsp;</TableCell>
             <TableCell align="right">Address&nbsp;</TableCell>
+            <TableCell align="right">Created at</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -69,6 +70,7 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
               <TableCell align="right">{event.category}</TableCell>
               <TableCell align="right">{event.place}</TableCell>
               <TableCell align="right">{event.address}</TableCell>
+              <TableCell align="right">{event.created_at}</TableCell>
             </TableRow>
           ))}
         </TableBody>
