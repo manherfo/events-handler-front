@@ -90,7 +90,7 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
               <TableCell align="right"><Button variant="contained" onClick={e => createEvent(name, category, place, address)}>Save</Button></TableCell>
             </TableRow>
         </TableBody>
-        <TableCell><Button variant="contained" color="secondary" padding>Back</Button></TableCell>
+        <TableCell><Button variant="contained" color="secondary" onClick={e => router.push("/events/")} padding>Back</Button></TableCell>
       </Table>
     </TableContainer>
   );

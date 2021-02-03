@@ -101,7 +101,7 @@ const EventsTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
             Ingresar
           </Button>
         </Grid>
-        <Grid container justify="center" style={{ marginTop: "10px" }}>
+        <Grid container style={{ marginTop: "10px" }}>
           <Button
             onClick={registrarUsuario}
             variant="outlined"

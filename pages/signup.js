@@ -30,8 +30,12 @@ const SignUpTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
   
   const registrarUsuario = async () => {
     try {
-      const { data } = await axios.post(
-        `http://localhost:5000/signups/${email}/${pwd}`
+      const { data } = await axios.put(
+        `http://localhost:5000/signups`,
+        {
+          email: email,
+          pwd: pwd
+        } 
         );
         usuarioRegistrado()
       } catch (err) {
@@ -86,7 +90,7 @@ const SignUpTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
             Registrse
           </Button>
         </Grid>
-        <Grid container justify="center" style={{ marginTop: "10px" }}>
+        <Grid container style={{ marginTop: "10px" }}>
           <Button
             onClick={usuarioRegistrado}
             variant="outlined"

@@ -40,16 +40,7 @@ const Events = ({ emailLoggeado }) => {
         router.replace("/"); // ------------
       }
   };
-  const deleteEvent = async (event) => {
-    try {
-      const { data } = await axios.get(
-        `http://localhost:5000/delete-event/${event}`
-      );
-      router.push("/events");
-    } catch (err) {
-      router.push("/events"); // ------------
-    }
-  };
+
   useEffect(() => {
     obtenerEventos();
   }, []);
@@ -77,12 +68,19 @@ const Events = ({ emailLoggeado }) => {
               <TableCell align="right">{event.place}</TableCell>
               <TableCell align="right">{event.address}</TableCell>
               <TableCell align="right"><Button variant="contained" onClick={e => router.push('/edit/[eventId]', `/edit/${event.id}`)}>EDIT</Button></TableCell>
-              <TableCell align="right"><Button variant="contained" onClick={e => deleteEvent(event.id)} color="secondary">DELETE EVENT</Button></TableCell>
+              <TableCell align="right"><Button variant="contained" onClick={e => router.push('/delete/[eventId]', `/delete/${event.id}`)} color="secondary">DELETE EVENT</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>
-        <TableCell><Button variant="contained" onClick={e => router.push('/create')} color="primary" padding>CREATE NEW EVENT</Button></TableCell>
       </Table>
+        <div>        
+          <TableCell align="right">
+          <Button variant="contained" onClick={e => router.push('/create')} color="primary" padding>CREATE NEW EVENT</Button>  
+        </TableCell>
+        <TableCell align="right">
+          <Button variant="contained" onClick={e => router.push('/')} color="secondary" padding-left="50px" >LOGOUT</Button>
+        </TableCell>
+        </div>        
     </TableContainer>
   );
 };

@@ -18,7 +18,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Paper , Button} from '@material-ui/core';
+import { Paper , Button, TextField } from '@material-ui/core';
 
 const useStyles = makeStyles({
     table: {
@@ -26,20 +26,33 @@ const useStyles = makeStyles({
     },
   });
 
-const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
+const DeleteEvent = () => {//{ emailLoggeado }) => {
   //const [events, setEvents] = useState([]); //estado y muta estado
   const [event, setEvent] = useState([]); //estado y muta estado
   const router = useRouter();
   const { eventId } = router.query;
+  console.log(eventId);
   const obtenerEvento = async () => {
     try {
       console.log(eventId);
       const { data } = await axios.get(
         `http://localhost:5000/event/${eventId}`
+
       );
       setEvent(data);
     } catch (err) {
       router.replace("/"); // ------------
+    }
+  };
+
+  const deleteEvent = async (event) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:5000/delete-event/${event}`
+      );
+      router.push("/events");
+    } catch (err) {
+      router.push("/events"); // ------------
     }
   };
 
@@ -54,28 +67,32 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Event</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Category</TableCell>
-            <TableCell align="right">Place&nbsp;</TableCell>
-            <TableCell align="right">Address&nbsp;</TableCell>
+            <TableCell>Evento</TableCell>
+            <TableCell align="right">Nombre</TableCell>
+            <TableCell align="right">Categoria</TableCell>
+            <TableCell align="right">Lugar</TableCell>
+            <TableCell align="right">Direccion</TableCell>
+            <TableCell align="right"></TableCell>
+            <TableCell align="right"></TableCell>
+            <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {event.map((event) => (
             <TableRow key={event.name}>
-              <TableCell component="th" scope="row"><a href={`/events/${event.id}`}>{event.id}</a></TableCell>
+              <TableCell component="th" scope="row"><Button variant="contained">{event.id}</Button></TableCell>
               <TableCell align="right">{event.name}</TableCell>
               <TableCell align="right">{event.category}</TableCell>
               <TableCell align="right">{event.place}</TableCell>
               <TableCell align="right">{event.address}</TableCell>
+              <TableCell align="right"><Button variant="contained" color="secondary" onClick={e => deleteEvent(event.id)}>Delete</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>
-        <TableCell><Button variant="contained" color="primary" padding onClick={e => router.push("/events/")}>Back</Button></TableCell>
+        <TableCell><Button variant="contained" color="secondary" padding onClick={e => router.push("/events/")}>Cancel</Button></TableCell>
       </Table>
     </TableContainer>
   );
 };
 
-export default EventDetail;
+export default DeleteEvent;
