@@ -51,6 +51,7 @@ const Events = ({ emailLoggeado, ingresarUsuario}) => {
             <TableCell align="right">Category</TableCell>
             <TableCell align="right">Place</TableCell>
             <TableCell align="right">Address</TableCell>
+            <TableCell align="right">Created at</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -61,6 +62,7 @@ const Events = ({ emailLoggeado, ingresarUsuario}) => {
               <TableCell align="right">{event.category}</TableCell>
               <TableCell align="right">{event.place}</TableCell>
               <TableCell align="right">{event.address}</TableCell>
+              <TableCell align="right">{event.created_at}</TableCell>
               <TableCell align="right"><Button variant="contained" onClick={e => router.push('/edit/[eventId]', `/edit/${event.id}`)}>EDIT</Button></TableCell>
               <TableCell align="right"><Button variant="contained" onClick={e => router.push('/delete/[eventId]', `/delete/${event.id}`)} color="secondary">DELETE EVENT</Button></TableCell>
             </TableRow>
