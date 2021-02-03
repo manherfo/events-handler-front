@@ -61,6 +61,7 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
   };
   const editEvent = async (event_id, name, category, place, address) => {
     try {
+      console.log(`evento editado, ${event_id}, ${name}, ${category}, ${place}, ${address}`)
       const { data } = await axios.post(
         `http://localhost:5000/edit-event/${event_id}`,
         {

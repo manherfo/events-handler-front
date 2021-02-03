@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     },
   });
 
-const Events = ({ emailLoggeado }) => {
+const Events = ({ emailLoggeado, ingresarUsuario}) => {
   const [events, setEvents] = useState([]); //estado y muta estado
   const router = useRouter();
   const obtenerEventos = async () => {
@@ -30,16 +30,10 @@ const Events = ({ emailLoggeado }) => {
     }
   };
 
-  const buscarEvento = async () => {
-    try {
-        const { data } = await axios.get(
-          `http://localhost:5000/event/${onclick.events.id}`
-        );
-        setEvents(data);
-      } catch (err) {
-        router.replace("/"); // ------------
-      }
-  };
+  const logOut = () => {
+    ingresarUsuario('');
+    router.push('/');
+  }
 
   useEffect(() => {
     obtenerEventos();
@@ -78,7 +72,7 @@ const Events = ({ emailLoggeado }) => {
           <Button variant="contained" onClick={e => router.push('/create')} color="primary" padding>CREATE NEW EVENT</Button>  
         </TableCell>
         <TableCell align="right">
-          <Button variant="contained" onClick={e => router.push('/')} color="secondary" padding-left="50px" >LOGOUT</Button>
+          <Button variant="contained" onClick={e => logOut()} color="secondary" padding-left="50px" >LOGOUT</Button>
         </TableCell>
         </div>        
     </TableContainer>
