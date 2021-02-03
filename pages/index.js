@@ -31,11 +31,18 @@ const EventsTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
   };
   const validarUsuario = async () => {
     try { 
-      const {data} = await axios.get(`http://localhost:5000/validate-pwds/${email}/${pwd}`);
+      const {data} = await axios.post(
+        `http://localhost:5000/validate-pwds`,
+        {
+          email: email,
+          pwd: pwd
+        } 
+      );
       if(Object.keys(data).length === 0){
         throw 'usuario invalido';
       }
-      const usuario = data;
+      const usuario = data[0];
+      console.log(usuario);
       ingresarUsuario(usuario.email);
     }
     catch(err){
