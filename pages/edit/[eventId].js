@@ -28,7 +28,9 @@ const useStyles = makeStyles({
 
 const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
   //const [events, setEvents] = useState([]); //estado y muta estado
+  const [event, setEvent] = useState([]); //estado y muta estado
   const router = useRouter();
+  const { eventId } = router.query;
   const [name, setName] = useState();
   const [category, setCategory] = useState();
   const [place, setPlace] = useState();
@@ -45,11 +47,22 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
   const onChangeAddress = (event) => {
     setAddress(event.target.value);
   };
-  const createEvent = async (name, category, place, address) => {
+  const obtenerEvento = async () => {
     try {
-      console.log(emailLoggeado);
+      console.log(eventId);
+      const { data } = await axios.get(
+        `http://localhost:5000/event/${eventId}`
+
+      );
+      setEvent(data);
+    } catch (err) {
+      router.replace("/"); // ------------
+    }
+  };
+  const editEvent = async (event_id, name, category, place, address) => {
+    try {
       const { data } = await axios.post(
-        `http://localhost:5000/create-event`,
+        `http://localhost:5000/edit-event/${event_id}`,
         {
           name: name,
           category: category,
@@ -58,12 +71,15 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
           email: emailLoggeado
         } 
       );
-      console.log(data);
-      router.push("/events");
+      router.push('/events/[eventId]', `/events/${event_id}`)
     } catch (err) {
-      throw `usuario invalido ${emailLoggeado}`;//router.replace("/"); // ------------
+      router.replace("/"); // ------------
     }
   };
+
+  useEffect(() => {
+    obtenerEvento();
+  }, []);
 
   const classes = useStyles();
 
@@ -72,25 +88,29 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="center">Nombre</TableCell>
-            <TableCell align="center">Categoria</TableCell>
-            <TableCell align="center">Lugar</TableCell>
-            <TableCell align="center">Direccion</TableCell>
+            <TableCell>Evento</TableCell>
+            <TableCell align="right">Nombre</TableCell>
+            <TableCell align="right">Categoria</TableCell>
+            <TableCell align="right">Lugar</TableCell>
+            <TableCell align="right">Direccion</TableCell>
             <TableCell align="right"></TableCell>
             <TableCell align="right"></TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-            <TableRow>
-              <TableCell align="right"><TextField id="outlined-secondary" label="Event name" variant="outlined" color="primary" onChange={onChangeName} value={name}/></TableCell>
-              <TableCell align="right"><TextField id="outlined-secondary" label="Event category" variant="outlined" color="primary" onChange={onChangeCategory} value={category}/></TableCell>
-              <TableCell align="right"><TextField id="outlined-secondary" label="Event place" variant="outlined" color="primary" onChange={onChangePlace} value={place}/></TableCell>
-              <TableCell align="right"><TextField id="outlined-secondary" label="Event address" variant="outlined" color="primary" onChange={onChangeAddress} value={address}/></TableCell>
-              <TableCell align="right"><Button variant="contained" onClick={e => createEvent(name, category, place, address)}>Save</Button></TableCell>
+          {event.map((event) => (
+            <TableRow key={event.name}>
+              <TableCell component="th" scope="row"><Button variant="contained">{event.id}</Button></TableCell>
+              <TableCell align="right"><TextField id="outlined-secondary" label={event.name} variant="outlined" color="primary" onChange={onChangeName} value={name}/>{event.name}</TableCell>
+              <TableCell align="right"><TextField id="outlined-secondary" label={event.category} variant="outlined" color="primary" onChange={onChangeCategory} value={category}/>{event.category}</TableCell>
+              <TableCell align="right"><TextField id="outlined-secondary" label={event.place} variant="outlined" color="primary" onChange={onChangePlace} value={place}/>{event.place}</TableCell>
+              <TableCell align="right"><TextField id="outlined-secondary" label={event.address} variant="outlined" color="primary" onChange={onChangeAddress} value={address}/>{event.address}</TableCell>
+              <TableCell align="right"><Button variant="contained" onClick={e => editEvent(event.id, name, category, place, address)}>Save</Button></TableCell>
             </TableRow>
+          ))}
         </TableBody>
-        <TableCell><Button variant="contained" color="secondary" padding>Back</Button></TableCell>
+        <TableCell><Button variant="contained" color="secondary" padding nClick={e => router.push("/events/")}>Back</Button></TableCell>
       </Table>
     </TableContainer>
   );

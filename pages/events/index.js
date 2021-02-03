@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter, Router } from "next/router";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,20 +24,32 @@ const Events = ({ emailLoggeado }) => {
       const { data } = await axios.get(
         `http://localhost:5000/user-events/${emailLoggeado}`
       );
-      if (data.length === 0) {
-        throw "usuario no existe";
-      }
-      const usuario = data[0];
       setEvents(data);
     } catch (err) {
       router.replace("/"); // ------------
     }
   };
 
-  const registrarUsuario = (eventid) => {
-    router.push(`/events/${eventid}`); // ------------
+  const buscarEvento = async () => {
+    try {
+        const { data } = await axios.get(
+          `http://localhost:5000/event/${onclick.events.id}`
+        );
+        setEvents(data);
+      } catch (err) {
+        router.replace("/"); // ------------
+      }
   };
-
+  const deleteEvent = async (event) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:5000/delete-event/${event}`
+      );
+      router.push("/events");
+    } catch (err) {
+      router.push("/events"); // ------------
+    }
+  };
   useEffect(() => {
     obtenerEventos();
   }, []);
@@ -49,30 +61,27 @@ const Events = ({ emailLoggeado }) => {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Nombre</TableCell>
-            <TableCell align="right">Categoria</TableCell>
-            <TableCell align="right">Lugar&nbsp;</TableCell>
-            <TableCell align="right">Direccion&nbsp;</TableCell>
-            <TableCell align="right">&nbsp;</TableCell>
-            <TableCell align="right">&nbsp;</TableCell>
+            <TableCell>Event</TableCell>
+            <TableCell align="right">Name</TableCell>
+            <TableCell align="right">Category</TableCell>
+            <TableCell align="right">Place</TableCell>
+            <TableCell align="right">Address</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {events.map((event) => (
             <TableRow key={event.name}>
-              <TableCell component="th" scope="row">
-                <a href={`/events/${event.name}`}>
-                    {event.name}
-                </a>
-              </TableCell>
+              <TableCell component="th" scope="row"><Button variant="contained" onClick={e => router.push('/events/[eventId]', `/events/${event.id}`)}>{event.id}</Button></TableCell>
+              <TableCell align="right">{event.name}</TableCell>
               <TableCell align="right">{event.category}</TableCell>
               <TableCell align="right">{event.place}</TableCell>
               <TableCell align="right">{event.address}</TableCell>
-              <TableCell align="right"><Button variant="contained">EDIT</Button></TableCell>
-              <TableCell align="right" ><Button variant="contained" color="secondary">DELETE</Button></TableCell>
+              <TableCell align="right"><Button variant="contained" onClick={e => router.push('/edit/[eventId]', `/edit/${event.id}`)}>EDIT</Button></TableCell>
+              <TableCell align="right"><Button variant="contained" onClick={e => deleteEvent(event.id)} color="secondary">DELETE EVENT</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>
+        <TableCell><Button variant="contained" onClick={e => router.push('/create')} color="primary" padding>CREATE NEW EVENT</Button></TableCell>
       </Table>
     </TableContainer>
   );

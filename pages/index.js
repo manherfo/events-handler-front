@@ -19,7 +19,7 @@ const styles = (theme) => ({
   },
 });
 
-const LoginTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
+const EventsTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
   const router = useRouter();
   const [email, setemail] = useState(''); //estado y muta estado
   const [pwd, setpwd] = useState('');
@@ -116,4 +116,4 @@ const LoginTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
   );
 };
 
-export default withStyles(styles)(LoginTab);
+export default withStyles(styles)(EventsTab);
