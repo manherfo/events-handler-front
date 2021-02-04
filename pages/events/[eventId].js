@@ -35,7 +35,7 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
     try {
       console.log(eventId);
       const { data } = await axios.get(
-        `http://localhost:5000/event/${eventId}`
+        `http://172.24.98.146:5000/event/${eventId}`
       );
       setEvent(data);
     } catch (err) {

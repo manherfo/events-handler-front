@@ -36,7 +36,7 @@ const DeleteEvent = () => {//{ emailLoggeado }) => {
     try {
       console.log(eventId);
       const { data } = await axios.get(
-        `http://localhost:5000/event/${eventId}`
+        `http://172.24.98.146:5000/event/${eventId}`
 
       );
       setEvent(data);
@@ -48,7 +48,7 @@ const DeleteEvent = () => {//{ emailLoggeado }) => {
   const deleteEvent = async (event) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/delete-event/${event}`
+        `http://172.24.98.146:5000/delete-event/${event}`
       );
       router.push("/events");
     } catch (err) {

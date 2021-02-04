@@ -32,7 +32,7 @@ const EventsTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
   const validarUsuario = async () => {
     try { 
       const {data} = await axios.post(
-        `http://localhost:5000/validate-pwds`,
+        `http://172.24.98.146:5000/validate-pwds`,
         {
           email: email,
           pwd: pwd

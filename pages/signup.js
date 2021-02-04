@@ -31,7 +31,7 @@ const SignUpTab = ({ classes, ingresarUsuario, emailLoggeado }) => {
   const registrarUsuario = async () => {
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/signups`,
+        `http://172.24.98.146:5000/signups`,
         {
           email: email,
           pwd: pwd

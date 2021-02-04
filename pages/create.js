@@ -49,7 +49,7 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
     try {
       console.log(emailLoggeado);
       const { data } = await axios.post(
-        `http://localhost:5000/create-event`,
+        `http://172.24.98.146:5000/create-event`,
         {
           name: name,
           category: category,

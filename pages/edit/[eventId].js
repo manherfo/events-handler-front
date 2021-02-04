@@ -51,7 +51,7 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
     try {
       console.log(eventId);
       const { data } = await axios.get(
-        `http://localhost:5000/event/${eventId}`
+        `http://172.24.98.146:5000/event/${eventId}`
 
       );
       setEvent(data);
@@ -63,7 +63,7 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
     try {
       console.log(`evento editado, ${event_id}, ${name}, ${category}, ${place}, ${address}`)
       const { data } = await axios.post(
-        `http://localhost:5000/edit-event/${event_id}`,
+        `http://172.24.98.146:5000/edit-event/${event_id}`,
         {
           name: name,
           category: category,

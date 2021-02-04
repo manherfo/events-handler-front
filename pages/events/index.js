@@ -22,7 +22,7 @@ const Events = ({ emailLoggeado, ingresarUsuario}) => {
   const obtenerEventos = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/user-events/${emailLoggeado}`
+        `http://172.24.98.146:5000/user-events/${emailLoggeado}`
       );
       setEvents(data);
     } catch (err) {
