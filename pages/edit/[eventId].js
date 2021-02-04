@@ -102,10 +102,10 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
           {event.map((event) => (
             <TableRow key={event.name}>
               <TableCell component="th" scope="row"><Button variant="contained">{event.id}</Button></TableCell>
-              <TableCell align="right"><TextField id="outlined-secondary" label={event.name} variant="outlined" color="primary" onChange={onChangeName} value={name} defaultValue={event.name}/></TableCell>
-              <TableCell align="right"><TextField id="outlined-secondary" label={event.category} variant="outlined" color="primary" onChange={onChangeCategory} value={category} defaultValue={event.category}/></TableCell>
-              <TableCell align="right"><TextField id="outlined-secondary" label={event.place} variant="outlined" color="primary" onChange={onChangePlace} value={place}defaultValue={event.place}/></TableCell>
-              <TableCell align="right"><TextField id="outlined-secondary" label={event.address} variant="outlined" color="primary" onChange={onChangeAddress} value={address}defaultValue={event.address}/></TableCell>
+              <TableCell align="right"><TextField id="outlined-secondary" label={event.name} variant="outlined" color="primary" onChange={onChangeName} value={name} defaultValue={event.name} required/></TableCell>
+              <TableCell align="right"><TextField id="outlined-secondary" label={event.category} variant="outlined" color="primary" onChange={onChangeCategory} value={category} defaultValue={event.category} required/></TableCell>
+              <TableCell align="right"><TextField id="outlined-secondary" label={event.place} variant="outlined" color="primary" onChange={onChangePlace} value={place}defaultValue={event.place} required/></TableCell>
+              <TableCell align="right"><TextField id="outlined-secondary" label={event.address} variant="outlined" color="primary" onChange={onChangeAddress} value={address}defaultValue={event.address} required/></TableCell>
               <TableCell align="right"><Button variant="contained" onClick={e => editEvent(event.id, name, category, place, address)}>Save</Button></TableCell>
             </TableRow>
           ))}

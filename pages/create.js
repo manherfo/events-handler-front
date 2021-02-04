@@ -83,10 +83,10 @@ const EventDetail = ({ emailLoggeado }) => {//{ emailLoggeado }) => {
         </TableHead>
         <TableBody>
             <TableRow>
-              <TableCell align="right"><TextField id="outlined-secondary" label="Event name" variant="outlined" color="primary" onChange={onChangeName} value={name}/></TableCell>
-              <TableCell align="right"><TextField id="outlined-secondary" label="Event category" variant="outlined" color="primary" onChange={onChangeCategory} value={category}/></TableCell>
-              <TableCell align="right"><TextField id="outlined-secondary" label="Event place" variant="outlined" color="primary" onChange={onChangePlace} value={place}/></TableCell>
-              <TableCell align="right"><TextField id="outlined-secondary" label="Event address" variant="outlined" color="primary" onChange={onChangeAddress} value={address}/></TableCell>
+              <TableCell align="right"><TextField id="outlined-secondary" label="Event name" variant="outlined" color="primary" onChange={onChangeName} value={name} required/></TableCell>
+              <TableCell align="right"><TextField id="outlined-secondary" label="Event category" variant="outlined" color="primary" onChange={onChangeCategory} value={category} required/></TableCell>
+              <TableCell align="right"><TextField id="outlined-secondary" label="Event place" variant="outlined" color="primary" onChange={onChangePlace} value={place} required/></TableCell>
+              <TableCell align="right"><TextField id="outlined-secondary" label="Event address" variant="outlined" color="primary" onChange={onChangeAddress} value={address} required/></TableCell>
               <TableCell align="right"><Button variant="contained" onClick={e => createEvent(name, category, place, address)}>Save</Button></TableCell>
             </TableRow>
         </TableBody>
